@@ -1,3 +1,4 @@
+import os
 from duckduckgo_search import DDGS
 import json
 
@@ -24,7 +25,8 @@ def get_company_urls(company_name):
 
 
 # "企業名,url" 形式のcsvファイルパス
-csv_file = '../data/sample_company_urls.csv'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_file = os.path.join(script_dir, '../data/company_urls.csv')
 # csvファイルを読み込む
 with open(csv_file, 'r', encoding='utf-8') as file:
     lines = file.readlines()
