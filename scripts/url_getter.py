@@ -43,10 +43,9 @@ for line in lines:
 
 # URLを取得して更新
 for i, (company_name, url) in enumerate(company_urls):
-    if not url:  # URLが空の場合のみ取得
-        print(f"Fetching URL for: {company_name}")
-        url = get_company_urls(company_name)
-        company_urls[i][1] = url if url else ''  # URLが取得できなかった場合は空文字列を格納
+    print(f"Fetching URL for: {company_name}")
+    url = get_company_urls(company_name)
+    company_urls[i][1] = url if url else ''  # URLが取得できなかった場合は空文字列を格納
 # 更新されたURLをCSVファイルに書き込む
 with open(csv_file, 'w', encoding='utf-8') as file:
     for company_name, url in company_urls:
