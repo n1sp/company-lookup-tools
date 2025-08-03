@@ -3,7 +3,7 @@
 
 def process_company_duplicates(input_file_path, output_file_path=None):
 	"""
-	企業名の重複をチェックし、重複している企業名に（重複）を付けて保存する
+	企業名の重複をチェックし、最初の出現に（重複元）、2つ目以降に（重複先）を付けて保存する
 	
 	Args:
 		input_file_path (str): 入力ファイルのパス
@@ -37,11 +37,19 @@ def process_company_duplicates(input_file_path, output_file_path=None):
 		print("重複している企業名はありません。")
 	print()
 	
-	# 重複している企業名に（重複）を付ける
+	# 重複している企業名に（重複元）または（重複先）を付ける
 	processed_lines = []
+	first_occurrence = {}  # 各企業名の最初の出現を記録
+	
 	for company in lines:
 		if company in duplicates:
-			processed_lines.append(f"{company}（重複）")
+			if company not in first_occurrence:
+				# 最初の出現：重複元
+				first_occurrence[company] = True
+				processed_lines.append(f"{company}（重複元）")
+			else:
+				# 2回目以降の出現：重複先
+				processed_lines.append(f"{company}（重複先）")
 		else:
 			processed_lines.append(company)
 	
@@ -83,7 +91,7 @@ A社"""
 if __name__ == "__main__":
 	import sys
 	
-	print("企業名重複チェック・修正スクリプト")
+	print("企業名重複チェック・修正スクリプト（重複元・重複先識別版）")
 	print("=" * 40)
 	
 	# コマンドライン引数をチェック
